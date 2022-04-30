@@ -24,11 +24,21 @@ def is_valid_password(uc_password: str):
 
     return bool(maj * min * num * longueur),message
 
+#--------------
+
+key = "A24C45A3459"
 
 def encrypt(uc_string: str) -> str:
-    ec_string = uc_string
-    # TODO encypter
+    ec_string = ""
+    key_itr = 0
+    for i in range(len(uc_string)):
+        lettre_encrpt = ord(uc_string[i]) ^ ord(key[key_itr])
+        ec_string += hex(lettre_encrpt)[2:].zfill(2) # enlève 0x et ajoute des zeros devant si nécessaire pour avoir deux chiffre hexa <-> 1 nombre
+        key_itr +=1
+        if key_itr>=len(key):
+            key_itr=0
     return ec_string
+
 
 
 def tri_fusion(tab: list) -> None:  # tri à gauche
