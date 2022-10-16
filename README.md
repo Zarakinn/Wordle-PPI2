@@ -1,114 +1,120 @@
 # PPII2 «Projet Pluridisciplinaire d'Informatique Intégrative» 2 (2021-2022)
 
+Professor : 
 Olivier Festor <<olivier.festor@telecomnancy.eu>>  
 Gérald Oster <<gerald.oster@telecomnancy.eu>>
 
+## Context
+
+This is a 4 person project done in the second semester of the first year in Telecom Nancy. 
+
 ## WORDLE
 
-**Membres du groupe E32** :
+**E32 group** :
 
-- Valentin CHANEL
+- **Valentin CHANEL**
 - Matéo DEMANGEON
 - Nicolas FRACHE
 - Victor VOISIN
 
-## Description du projet
+## Description
 
-Création dans un premier temps d'une application web reprenant le principe du jeu
-wordle (https://www.nytimes.com/games/wordle/index.html). En utilisant la technologie Flask en Python.
-Puis dans un second temps, d'un solveur en C qui mettra à contribution des structures de données avancées.
+First, we created a wordle web application ( like : https://www.nytimes.com/games/wordle/index.html ) with Python / Flask / SQLite / Html / CSS / JavaScript.
 
-[Voir le sujet détaillé disponible en version PDF](./sujet.pdf)
+Then we wrote and optimize a solver in C, using ![information theory](https://youtu.be/v68zYyaEmEA) and advanced data structure.
 
-## Partie 1 - Application Web
+[Here is the original subject](./documents/sujet.pdf) ( in French ).
 
-### Instructions d'installation :
+## Part 1 - Web Application
 
-1. Cloner ou télécharger le projet sur son ordinateur.
+### Initialization :
+
+1. Clone the git repository on yout computer.
 
 
-2. Dans le dossier du projet ```./app_wordle/```, creer un environnement virtuel avec la commande :
+2. In the ```./app_wordle/``` folder, create a virual environnement :
    ```python3 -m venv ./venv```.
 
 
-3. Rentrer dans l'environnement virtuel :
-    - Sur linux ou équivalent: ```source ./venv/bin/activate```
-    - Sur windows: ```.\venv\Scripts\activate.bat```
+3. Enter the virtual environnement :
+    - Linux / Mac: ```source ./venv/bin/activate```
+    - Windows: ```.\venv\Scripts\activate.bat```
+
+4. Install dependancies: ```pip install -r requirements.txt```.
 
 
-4. Installer les dépendances: ```pip install -r requirements.txt```.
+5. Initialiaze the database: ```flask initdb```.
 
 
-5. Initialiser la base de données avec la commande : ```flask initdb```.
+6. To launch the app, you can either use:
+    -  ```flask run -p 3000```
+    - or  ```python3 app.py```,but with this method you can't choose the port.
 
 
-6. Demarrer l'application. Pour cela deux méthodes :
-    - Méthode 1: ```flask run -p 3000```
-    - Méthode 2: ```python3 app.py```, cette seconde solution ne permet pas de choisir le port.
+7. Finaly to test it, use the url: http://localhost:3000/.
 
+#### To use the automated test:
 
-7. Enfin pour tester l'application en local, accèder à l'url: http://localhost:3000/.
+- Use the ```pytest``` command.
 
-#### Lancement des tests :
+## Part 2 - C Solver
 
-- Lancer les tests avec la commande : ```pytest```.
+### Prerequisite :
 
-## Partie 2 - Solveur en C
+- Clang compiler : ````sudo apt install clang````
+- SQLite 3 library for C : ````sudo apt-get install libsqlite3-dev````
 
-### Pré-requis pour l'installation
+### Compilation and execution
 
-- Compilateur clang : ````sudo apt install clang````
-- Bibliothèque sqlite3 pour C : ````sudo apt-get install libsqlite3-dev````
+- In the solveur folder, use : ````make solver```` and ````make test````.
+- To execute the automated test, go in the "/bin" folder and type : ````./solver```` or ````./test````
 
-### Compilation et execution
+### Choose a Word :
 
-- Pour génerer les executables de l'application et des tests, se déplacer dans le dossier solveur
-  puis : ````make solver```` et ````make test````.
-- Executer les tests et l'application en se déplaçant dans "/bin", puis avec : ````./solver```` ou ````./test````
+- Our dictionnary is from the Lexique3 database and is very complete, every french word is guessable.
 
-### Choix d'un mot à utiliser contre le solveur
+## Conventions on commit commentary :
 
-- Notre dictionnaire provient de la base de données très complête Lexique3. Donc n'importe quel lemme de la langue française est devinable par notre programme.
+In order to clarify commit goal, we used a modified version of ![this](https://github.com/ahmadawais/Emoji-Log/) convention.
 
-## Conventions pour les messages de commits
-
-Afin de rendre les messages de commits plus clairs nous allons utiliser une version modifiée et adaptée à nos besoins
-des règles de nommage décrites dans ce dépot : https://github.com/ahmadawais/Emoji-Log/.
-
-*L'utilisation des emojis est facultative mais apporte plus de lisibilité.*
+*The use of emoticon increase visibilty.*
 
 1. `✨ NEW: MESSAGE`
-   > Nouvelle fonctionalité.
+   > New functionality.
 
 2. `🔨 IMPROVE: MESSAGE`
-   > Amélioration de code existant ou refactoring.
+   > Improvement or refactoring of existing code.
 
 3. `🪲 FIX: MESSAGE`
-   > Correction de bug.
+   > Bug fixing.
 
 4. `💡 DOC: MESSAGE`
-   > Documentation liée au projet (commentaires ou readme.md par exemple).
+   > Documentation.
 
 5. `🤖 TEST:MESSAGE`
-   > Lié aux test (sauf ceux de performance).
+   > Everything linked to testing.
 
 6. `🐎 PERF: MESSAGE`
-   > Tests et mesure de performance, ainsi que les calculs de complexité théorique.
+   > Performance measurement.
 
 7. `📚 GDP: MESSAGE`
-   > Documents de gestion de projet (à ne pas confondre avec *💡 DOC* pour l'aspect technique).
+   > Project management file.
 
 8. `🔀 MERGE: MESSAGE`
-   > Merges de branches.
+   > Branch merging
 
 9. `🔧 CONF: MESSAGE`
-   > Fichier de configuration (*requirement.txt* par exemple).
+   > Config file
 
 10. `🚧 WIP: MESSAGE`
-    > **Work in progress**: Méthode partiellement écrite qu'on rélègue à un autre (utiliser une branche temporaire).
+    > **Work in progress**
 
 11. `💄 COS: MESSAGE`
-    > Changement cosmétique (UI).
+    > Cosmetic change
 
 12. `📌 RELEASE: MESSAGE`
-    > Livrable de fin de sprint. 
+    > Working prototype
+
+## Credit
+
+The ReadMe was updated by Nicolas Frache and then translated and modified by Valentin CHANEL.
